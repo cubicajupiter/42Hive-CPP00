@@ -6,7 +6,7 @@
 #    By: jvalkama <jvalkama@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/18 12:06:00 by jvalkama          #+#    #+#              #
-#    Updated: 2025/12/11 17:00:52 by jvalkama         ###   ########.fr        #
+#    Updated: 2025/12/12 16:29:11 by jvalkama         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,18 +14,13 @@ NAME			:=megaphone
 
 SRCDIR			:=src
 VPATH			:=$(SRCDIR)
-SRCS			:=______.cpp
+SRCS			:=megaphone.cpp
 
 OBJDIR			:=obj
-OBJS			:=$(addprefix $(OBJDIR)/, $(SRCS:.c=.o))
+OBJS			:=$(addprefix $(OBJDIR)/, $(SRCS:.cpp=.o))
 
 COMPILER		:=c++
-CXXFLAGS		:=-Wall -Wextra -Werror -std=c++17
-
-INC_DIR			:=inc
-INCLUDES		:=-I $(INC_DIR)
-
-HEADER			:=$(INC_DIR)/________.hpp
+CXXFLAGS		:=-Wall -Wextra -Werror -O3 -march=native -std=c++17
 
 RM				:=rm -f
 
