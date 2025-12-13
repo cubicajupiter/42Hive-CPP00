@@ -6,7 +6,7 @@
 /*   By: jvalkama <jvalkama@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 16:27:21 by jvalkama          #+#    #+#             */
-/*   Updated: 2025/12/12 16:29:12 by jvalkama         ###   ########.fr       */
+/*   Updated: 2025/12/13 12:35:00 by jvalkama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	main(int ac, char **av) {
 	MegaPhone	mp;
 
-	mp.amplify(mp.input(av));
+	(void) ac;
+	mp.use(av);
 	return 0;
 }

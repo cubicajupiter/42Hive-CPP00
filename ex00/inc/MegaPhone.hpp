@@ -6,7 +6,7 @@
 /*   By: jvalkama <jvalkama@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 16:27:30 by jvalkama          #+#    #+#             */
-/*   Updated: 2025/12/12 16:29:18 by jvalkama         ###   ########.fr       */
+/*   Updated: 2025/12/13 12:18:51 by jvalkama         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,15 @@
 # include <cctype>
 
 class MegaPhone {
-		std::string arg;
-		std::string to_upper (std::string);
+		std::string input;
+		void capitalize (void);
+		void get_input (char **);
+		void amplify (void);
 		void feedback (void);
-		void scream (std::string);
+		void output (void);
 	public:
-		std::string input (char **);
-		void amplify (std::string);
+		void use (char **);
+
 };
 
 #endif

@@ -14,10 +14,14 @@ NAME			:=megaphone
 
 SRCDIR			:=src
 VPATH			:=$(SRCDIR)
-SRCS			:=megaphone.cpp
+SRCS			:=main.cpp MegaPhone.cpp
 
 OBJDIR			:=obj
 OBJS			:=$(addprefix $(OBJDIR)/, $(SRCS:.cpp=.o))
+
+INC_DIR			:=inc
+INCLUDES		:=-I $(INC_DIR)
+HEADER			:=$(INC_DIR)/MegaPhone.hpp
 
 COMPILER		:=c++
 CXXFLAGS		:=-Wall -Wextra -Werror -O3 -march=native -std=c++17
