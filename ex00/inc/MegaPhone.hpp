@@ -15,16 +15,16 @@
 
 # include <iostream>
 # include <string>
-# include <algorithm>
 # include <cctype>
 
 class MegaPhone {
 		std::string input;
-		void capitalize (void);
+		int	str_len;
+		std::string capitalize (void);
 		void get_input (char **);
 		void amplify (void);
 		void feedback (void);
-		void output (void);
+		void output (std::string);
 	public:
 		void use (char **);
 

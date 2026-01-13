@@ -20,29 +20,36 @@ void	MegaPhone::use(char **av) {
 void	MegaPhone::get_input(char **av) {
 	int		i = 1;
 
-	while (av[i])
-		input += av[i++];
+	while (av[i]) {
+		this->input += av[i];
+		i++;
+	}
+	for ( i = 0; this->input[i]; i++ );
+	this->str_len = i;
 }
 
 void	MegaPhone::amplify(void) {
 	if (input.empty())
 		feedback();
 	else {
-		capitalize();
-		output();
+		output(capitalize());
 	}
 }
 
-void	MegaPhone::capitalize(void) {
-	std::transform(input.begin(), input.end(), input.begin(), [](unsigned char c) {
-		return std::toupper(c);
-	});
+std::string	MegaPhone::capitalize(void) {
+	std::string	result;
+
+	result = this->input;
+	for (char& c : result) {
+		c = (static_cast<char>(std::toupper(static_cast<unsigned char>(c))));
+	}
+	return (result);
 }
 
 void	MegaPhone::feedback(void) {
 	std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *" << std::endl;
 }
 
-void	MegaPhone::output(void) {
-	std::cout << input << std::endl;
+void	MegaPhone::output(std::string str) {
+	std::cout << str << std::endl;
 }
