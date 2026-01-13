@@ -5,7 +5,6 @@
 # include <string>
 # include <iomanip>
 # include <sstream>
-# include <cstdint>
 # include <array>
 
 # include "Contact.hpp"

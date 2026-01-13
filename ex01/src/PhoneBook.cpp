@@ -28,7 +28,7 @@ void	PhoneBook::interface(void) {
 }
 
 void	PhoneBook::add(void) {
-	static unsigned int		i;
+	static unsigned int		i = 1;
 	Contact					con;
 
 	std::cout << "Contact's first name: ";
@@ -41,9 +41,9 @@ void	PhoneBook::add(void) {
 	std::cin >> con.phone_nbr;
 	std::cout << "Contact's darkest secret: ";
 	std::cin >> con.darkest_secret;
-	con.index = i % 8;
-	contacts[con.index] = con;
-	if (i < 8)
+	con.index = i % 9;
+	this->contacts[con.index - 1] = con;
+	if (i < 9)
 		len++;
 	std::cout << "Contact added!" << std::endl;
 	i++;
@@ -51,7 +51,8 @@ void	PhoneBook::add(void) {
 
 void	PhoneBook::search(void) {
 	std::cout << '\n';
-	for (const Contact &con : contacts) {
+	std::cout << "Index     |First name| Last name|  Nickname" << std::endl;
+	for (const Contact &con : this->contacts) {
 		if (con.is_filled())
 			std::cout << std::right << std::setw(10) << con.index << '|'\
 				<< std::right << std::setw(10) << con.truncate(con.first_name) << '|'\
@@ -67,31 +68,31 @@ void	PhoneBook::display_choice(void) {
 
 	while (1) {
 		std::cout << "Please enter the index of the contact to display: ";
-		std::cin >> input;
+		std::cin >> this->input;
 		ss.str("");
 		ss.clear();
-		ss << input;
+		ss << this->input;
 		ss >> index;
 		if (is_inrange(index)) {
 			std::cout << "\nDISPLAYING CONTACT INFORMATION"  << std::endl;
-			std::cout << "\tFirst Name: " << contacts[index].first_name << '\n'
-			<< "\tLast Name: " << contacts[index].last_name << '\n'
-			<< "\tNickname: " << contacts[index].nickname << '\n'
-			<< "\tPhone Number: " << contacts[index].phone_nbr << '\n'
-			<< "\tDarkest Secret: " << contacts[index].darkest_secret << '\n' << std::endl;
+			std::cout << "\tFirst Name: " << this->contacts[index - 1].first_name << '\n'
+			<< "\tLast Name: " << this->contacts[index - 1].last_name << '\n'
+			<< "\tNickname: " << this->contacts[index - 1].nickname << '\n'
+			<< "\tPhone Number: " << this->contacts[index - 1].phone_nbr << '\n'
+			<< "\tDarkest Secret: " << this->contacts[index - 1].darkest_secret << '\n' << std::endl;
 			break ;
 		}
 	}
 }
 
 bool	PhoneBook::is_inrange(int index) {
-	if (index > 7 || index < 0 || index >= len) {
-		std::cout << "Index out of range. Please enter a valid existing index (0-7)." << std::endl;
+	if (index > 8 || index < 1 || index > len) {
+		std::cout << "Index out of range. Please enter a valid existing index (1-8)." << std::endl;
 		return false;
 	}
 	return true;
 }
 
 void	PhoneBook::exit(void) {
-	is_on = false;
+	this->is_on = false;
 }
