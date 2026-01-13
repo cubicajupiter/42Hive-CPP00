@@ -10,22 +10,21 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME			:=________
+NAME			:=
 
 SRCDIR			:=src
 VPATH			:=$(SRCDIR)
-SRCS			:=______.cpp
+SRCS			:=Account.cpp tests.cpp
 
 OBJDIR			:=obj
-OBJS			:=$(addprefix $(OBJDIR)/, $(SRCS:.c=.o))
+OBJS			:=$(addprefix $(OBJDIR)/, $(SRCS:.cpp=.o))
+
+INC				:=inc
+INCLUDES		:=-I $(INC)
+HEADER			:=$(INC)/Account.hpp
 
 COMPILER		:=c++
-CXXFLAGS		:=-Wall -Wextra -Werror -std=c++17
-
-INC_DIR			:=inc
-INCLUDES		:=-I $(INC_DIR)
-
-HEADER			:=$(INC_DIR)/________.hpp
+CXXFLAGS		:=-Wall -Wextra -Werror -O3 -march=native -std=c++17
 
 RM				:=rm -f
 

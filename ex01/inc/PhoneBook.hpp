@@ -1,27 +1,35 @@
 #ifndef PHONEBOOK_HPP
 # define PHONEBOOK_HPP
 
-#include <iostream>
-#include <string>
+# include <iostream>
+# include <string>
+# include <iomanip>
+# include <sstream>
+# include <cstdint>
+# include <array>
 
-class Contact {
-	public:
-		std::string first_name;
-		std::string last_name;
-		std::string nickname;
-		std::string phone_nbr;
-		std::string darkest_secret;
-};
+# include "Contact.hpp"
 
 class PhoneBook {
-		Contact contacts[8];
-		bool is_on;
-		std::string input;
-		void add (void);
-		void search (void);
-		void exit (void);
 	public:
-		void interface (void);
+			//constructor
+		PhoneBook (void) 
+			: is_on(false) {}
+	private:
+			//attributes
+		std::array<Contact, 8>	contacts;
+		bool					is_on;
+		std::string				input;
+		int						len = 0;
+			//methods
+		void		add (void);
+		void		search (void);
+		void		display_choice (void);
+		bool		is_inrange (int);
+		void		exit (void);
+	public:
+			//methods
+		void		interface (void);
 };
 
 #endif
