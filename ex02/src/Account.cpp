@@ -18,9 +18,9 @@ static int	Account::getNbWithdrawals( void ) {
 
 static void Account::displayAccountsInfos( void ) {
     _nbAccounts;
-    total;
-    deposits;
-    withdrawals;
+    _totalAmount;
+    _totalNbDeposits;
+    _totalNbWithdrawals;
 }
 
 //CONSTRUCTORS
