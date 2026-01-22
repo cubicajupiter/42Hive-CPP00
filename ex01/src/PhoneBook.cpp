@@ -1,98 +1,133 @@
-//prompt user input
-//only one of three commands - else usage instructions
-//No empty fields
-//ADD: propt info input one field at a time.
-//SEARCH: for index choice, display right-aligned 4 colums 10 chars wide with | delimiter btwn columsn. if longer than 10, truncate end with '.'
-//			-> prompt user again for index
-//			-> after index choice, then display contact information one field per line.
-//EXIT: quit program and lose all contacts.
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   PhoneBook.cpp                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvalkama <jvalkama@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/22 11:42:02 by jvalkama          #+#    #+#             */
+/*   Updated: 2026/01/22 15:58:12 by jvalkama         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "PhoneBook.hpp"
 
+static void	clearScreen(void);
+
+std::string	readInput(std::istream& in) {
+	std::string		input;
+
+	while (std::getline(in, input)) {
+		if (!input.empty())
+			break;
+	}
+	return input;
+}
+
 void	PhoneBook::interface(void) {
-	is_on = true;
-	std::cout << "Welcome to the PhoneBook!\nUsage:\n";
-	while (is_on) {
+	this->_is_on = true;
+	while (this->_is_on) {
+		clearScreen();
+		std::cout << "Welcome to the PhoneBook!\nUsage:\n";
 		std::cout << "Input <ADD> to add a contact\n";
 		std::cout << "Input <SEARCH> to search for a contact\n";
 		std::cout << "Input <EXIT> to exit the app." << std::endl;
 		std::cout << "Please enter your input: ";
-		std::cin >> input; //use stringstreams for better control over input. permit only strings.
-		if (input == "ADD")
+		std::cin >> this->_input;
+		if (this->_input == "ADD")
 			add();
-		else if (input == "SEARCH")
+		else if (this->_input == "SEARCH")
 			search();
-		else if (input == "EXIT")
+		else if (this->_input == "EXIT")
 			exit();
 	}
 }
 
 void	PhoneBook::add(void) {
-	static unsigned int		i = 1;
+	static unsigned int		i = 0;
 	Contact					con;
 
+	clearScreen();
 	std::cout << "Contact's first name: ";
-	std::cin >> con.first_name;
+	con.setFirst(readInput(std::cin));
 	std::cout << "Contact's last name: ";
-	std::cin >> con.last_name;
+	con.setLast(readInput(std::cin));
 	std::cout << "Contact's nickname: ";
-	std::cin >> con.nickname;
+	con.setNick(readInput(std::cin));
 	std::cout << "Contact's phone number: ";
-	std::cin >> con.phone_nbr;
+	con.setNumber(readInput(std::cin));
 	std::cout << "Contact's darkest secret: ";
-	std::cin >> con.darkest_secret;
-	con.index = i % 9;
-	this->contacts[con.index - 1] = con;
-	if (i < 9)
-		len++;
+	con.setSecret(readInput(std::cin));
+	con.setIndex((i % 8) + 1);
+	this->_contacts[i % 8] = con;
+	if (i < 8)
+		this->_len++;
 	std::cout << "Contact added!" << std::endl;
 	i++;
 }
 
 void	PhoneBook::search(void) {
-	std::cout << '\n';
-	std::cout << "Index     |First name| Last name|  Nickname" << std::endl;
-	for (const Contact &con : this->contacts) {
-		if (con.is_filled())
-			std::cout << std::right << std::setw(10) << con.index << '|'\
-				<< std::right << std::setw(10) << con.truncate(con.first_name) << '|'\
-				<< std::right << std::setw(10) << con.truncate(con.last_name) << '|'\
-				<< std::right << std::setw(10) << con.truncate(con.nickname) << std::endl;
+	if (this->_len > 0) {
+		clearScreen();
+		std::cout << '\n';
+		std::cout << "INDEX     |FIRST NAME| LAST NAME|  NICKNAME" << std::endl;
+		for ( const Contact &con : this->_contacts ) {
+			if (con.is_filled())
+				std::cout << std::right << std::setw(10) << con.getIndex() << '|'\
+					<< std::right << std::setw(10) << con.truncate(con.getFirst()) << '|'\
+					<< std::right << std::setw(10) << con.truncate(con.getLast()) << '|'\
+					<< std::right << std::setw(10) << con.truncate(con.getNick()) << std::endl;
+		}
+		displayChoice();
 	}
-	display_choice();
+	else {
+		clearScreen();
+		std::cout << "\n###### CONTACTS LIST IS EMPTY ######\n" << std::endl;
+		std::cout << "\nPress ENTER to continue ...\n" << std::endl;
+		std::cin.ignore();
+		std::cin.get();
+	}
 }
 
-void	PhoneBook::display_choice(void) {
+void	PhoneBook::displayChoice(void) {
 	std::stringstream	ss;
 	int					index;
-
+ 
 	while (1) {
+		std::cout << std::endl;
 		std::cout << "Please enter the index of the contact to display: ";
-		std::cin >> this->input;
+		this->_input = readInput(std::cin);
 		ss.str("");
 		ss.clear();
-		ss << this->input;
+		ss << this->_input;
 		ss >> index;
-		if (is_inrange(index)) {
+		if (isInRange(index)) {
 			std::cout << "\nDISPLAYING CONTACT INFORMATION"  << std::endl;
-			std::cout << "\tFirst Name: " << this->contacts[index - 1].first_name << '\n'
-			<< "\tLast Name: " << this->contacts[index - 1].last_name << '\n'
-			<< "\tNickname: " << this->contacts[index - 1].nickname << '\n'
-			<< "\tPhone Number: " << this->contacts[index - 1].phone_nbr << '\n'
-			<< "\tDarkest Secret: " << this->contacts[index - 1].darkest_secret << '\n' << std::endl;
+			std::cout << "\tFirst Name: " << this->_contacts[index - 1].getFirst() << '\n'
+			<< "\tLast Name: " << this->_contacts[index - 1].getLast() << '\n'
+			<< "\tNickname: " << this->_contacts[index - 1].getNick() << '\n'
+			<< "\tPhone Number: " << this->_contacts[index - 1].getNumber() << '\n'
+			<< "\tDarkest Secret: " << this->_contacts[index - 1].getSecret() << '\n' << std::endl;
+			std::cout << "\nPress ENTER to continue ...\n" << std::endl;
+			std::getline(std::cin, this->_input);
 			break ;
 		}
 	}
 }
 
-bool	PhoneBook::is_inrange(int index) {
-	if (index > 8 || index < 1 || index > len) {
-		std::cout << "Index out of range. Please enter a valid existing index (1-8)." << std::endl;
+bool	PhoneBook::isInRange(int index) {
+	if (index > 8 || index < 1 || index > this->_len) {
+		std::cout << "Index out of range. Please enter a valid existing index (1-" \
+					<< this->_len << ")." << std::endl;
 		return false;
 	}
 	return true;
 }
 
 void	PhoneBook::exit(void) {
-	this->is_on = false;
+	this->_is_on = false;
+}
+
+static void	clearScreen(void) {
+	std::cout << "\033[2J\033[1;1H";
 }

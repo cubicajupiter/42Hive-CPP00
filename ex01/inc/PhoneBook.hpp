@@ -1,34 +1,42 @@
-#ifndef PHONEBOOK_HPP
-# define PHONEBOOK_HPP
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   PhoneBook.hpp                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jvalkama <jvalkama@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/22 11:45:53 by jvalkama          #+#    #+#             */
+/*   Updated: 2026/01/22 15:58:14 by jvalkama         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#pragma once
 
 # include <iostream>
 # include <string>
 # include <iomanip>
 # include <sstream>
-# include <array>
-
+# include <limits>
 # include "Contact.hpp"
 
 class PhoneBook {
+
 	public:
-			//constructor
-		PhoneBook (void) 
-			: is_on(false) {}
+		PhoneBook (void) : _is_on(false) {}
+
 	private:
-			//attributes
-		std::array<Contact, 8>	contacts;
-		bool					is_on;
-		std::string				input;
-		int						len = 0;
-			//methods
+		Contact					_contacts[8];
+		bool					_is_on;
+		std::string				_input;
+		int						_len = 0;
+
 		void		add (void);
 		void		search (void);
-		void		display_choice (void);
-		bool		is_inrange (int);
+		void		displayChoice (void);
+		bool		isInRange (int);
 		void		exit (void);
-	public:
-			//methods
-		void		interface (void);
-};
 
-#endif
+	public:
+		void		interface (void);
+
+};

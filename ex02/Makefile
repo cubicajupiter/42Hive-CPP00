@@ -6,7 +6,7 @@
 #    By: jvalkama <jvalkama@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/18 12:06:00 by jvalkama          #+#    #+#              #
-#    Updated: 2025/12/11 17:00:52 by jvalkama         ###   ########.fr        #
+#    Updated: 2026/01/22 15:58:17 by jvalkama         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ INCLUDES		:=-I $(INC)
 HEADER			:=$(INC)/Account.hpp
 
 COMPILER		:=c++
-CXXFLAGS		:=-Wall -Wextra -Werror -O3 -march=native -std=c++17
+CXXFLAGS		:=-Wall -Wextra -Werror -O3 -march=native -std=c++98
 
 RM				:=rm -f
 
